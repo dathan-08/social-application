@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from socapi import views
+from rest_framework.routers import DefaultRouter
+router=DefaultRouter()
+router.register("socapi/v1/posts",views.PostView,basename="posts")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+
+]+router.urls
