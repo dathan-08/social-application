@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ViewSet
-from socapi.seriliazers import PostSerializer
+from socapi.seriliazers import PostSerializer,UserSerializer
 from rest_framework.response import Response
 from socapi.models import Posts
+
+
 # Create your views here.
 
 class PostView(ViewSet):
@@ -39,3 +41,13 @@ class PostView(ViewSet):
         qs=Posts.objects.get(id=id)
         qs.delete()
         return Response({"msg":"deleted"})
+
+
+class UserView(ViewSet):
+    def create(self,request,*args,**kwargs):
+        serilaizers=UserSerializer(data=request.data)
+        if serilaizers.is_valid():
+            serilaizers.save()
+            return Response(data=serilaizers.data)
+        else:
+            return Response(data=serilaizers.errors)

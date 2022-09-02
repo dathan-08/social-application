@@ -19,6 +19,7 @@ from socapi import views
 from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
 router.register("socapi/v1/posts",views.PostView,basename="posts")
+router.register("account/signup",views.UserView,basename="users")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
