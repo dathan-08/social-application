@@ -3,11 +3,14 @@ from rest_framework.viewsets import ViewSet
 from socapi.seriliazers import PostSerializer,UserSerializer
 from rest_framework.response import Response
 from socapi.models import Posts
+from rest_framework import authentication,permissions
 
 
 # Create your views here.
 
 class PostView(ViewSet):
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     def list(self,request,*args,**kwargs):
         qs=Posts.objects.all()
         serializer=PostSerializer(qs,many=True)
